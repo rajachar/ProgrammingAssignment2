@@ -1,7 +1,8 @@
 ## = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 ##
-## Below are two functions that are used to create a special object that stores a numeric vector 
-## and cache's its mean. 
+## Below are two functions that are used (in its combination) to create a special "matrix" object, calculate its inverse
+## (matrix inverse), save / "cache" the same as a variable if it is a new object (i.e, should the object be created 
+## for the first time), and merely retrieve it from cache if the object already exists. (without having to redo the same)
 ##
 ## The first function, "makeCacheMatrix" creates a special "matrix" object that can "cache" its inverse
 ##
@@ -24,4 +25,20 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
+        matrix_inv <- x$getmat_inv()
+        if(!is.null(matrix_inv)) {
+           message("getting cached data")   # Put out an information message to denote that the object is from cache
+           return(matrix_inv)
+        }
+##
+## If the above is TRUE, i.e, the matrix object already exists, the function exits at this point and returns back 
+## to the caller with the object just found.
+##
+## Code continues execution beyond this point if the object is not found (or is NULL). 
+##
+matrix_x <- x$getmat_x()                # Get the input matrix object
+matrix_inv <- solve(matrix_x, ...)      # Calculate the inverse of matrix 
+x$setmat_inv(matrix_inv)                # Set the object variable  
+return(matrix_inv)                      # return / exit out of the function call with the inverse of the matrix
 }
+
