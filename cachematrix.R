@@ -14,9 +14,21 @@
 ## Creates a "matrix" object that can be used for caching whenever need arises 
 
 makeCacheMatrix <- function(x = matrix()) {
-
+##
+##
+##
+        setmat_x = function(y) {
+                # use `<<-` to assign a value to an object in an environment 
+                # different from the current environment. 
+                x <<- y
+                matrix_inv <<- NULL
+        }
+        getmat_x = function() x
+        setmat_inv = function(inverse)  matrix_inv <<- inverse 
+        getmat_inv = function()  matrix_inv
+        list(setmat_x = setmat_x, getmat_x = getmat_x, setmat_inv = setmat_inv, getmat_inv = getmat_inv)
 }
-
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ##
 ## function - "cacheSolve" 
 ## Computes the inverse of the special "matrix" returned by function "makeCacheMatrix" and "caches" it.
@@ -24,7 +36,9 @@ makeCacheMatrix <- function(x = matrix()) {
 ## should just merely retrieve the inverse from the "cache" rather than performing any new calculation(s)
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+##
+## Return a matrix that is the inverse of 'x'
+##
         matrix_inv <- x$getmat_inv()
         if(!is.null(matrix_inv)) {
            message("getting cached data")   # Put out an information message to denote that the object is from cache
