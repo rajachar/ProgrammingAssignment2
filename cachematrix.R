@@ -1,14 +1,14 @@
 ## = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 ##
 ## Below are two functions that are used (in its combination) to create a special "matrix" object, calculate its inverse
-## (matrix inverse), save / "cache" the same as a variable if it is a new object (i.e, should the object be created 
+## (matrix inverse), save to "cache" the same as a variable if it is a new object (i.e, should the object be created 
 ## for the first time), and merely retrieve it from cache if the object already exists. (without having to redo the same)
 ##
 ## The first function, "makeCacheMatrix" creates a special "matrix" object that can "cache" its inverse
 ##
-## This second function, "cacheSolve" computes the inverse of the special "matrix" returned by makeCacheMatrix above
+## This second function, "cacheSolve" computes the inverse of the special "matrix" passed by makeCacheMatrix above
 ##
-## = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+## = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 ## function - "makeCacheMatrix" 
 ## Creates a "matrix" object that can be used for caching whenever need arises 
