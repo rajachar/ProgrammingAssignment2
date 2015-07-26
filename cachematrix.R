@@ -10,14 +10,14 @@
 ## The first function, "makeCacheMatrix" mainly creates an o/p "list" of 4 
 ## (four) functions, that are small, inter related executable tasks, viz,
 ##
-## (1) getmat_x : To get the matrix requirement via the argument 
-##                value passed by the main function and merely pass
+## (1) getmat_x : To get the Input matrix requirement via the argument 
+##                value supplied by the main function and merely pass
 ##                it on to other functions.
 ## (2) setmat_x : This function will not normally be required, unless the
 ##                value of the input matrix is required to be changed 
-##                in the middle. And when gets executed, it assigns (sets)
-##                value to variable "outside" of the "current environment". 
-##                Which can be accessed by other calling functions.
+##                in the "middle". And when gets executed, it assigns (sets)
+##                value to variable "outside" of the "current environment", 
+##                that can be accessed by other calling functions.
 ## (3) setmat_inv & 
 ## (4) setmat_inv are functions that are similar to the above two, in that,
 ##                they do not perform any calculations other than setting
@@ -25,10 +25,40 @@
 ##                
 ## The second function, "cacheSolve" either retrieves the result from a 
 ## previously performed calculation (operation), or caculates the inverse of
-## a given matrix object and saves ("caches") them in a global environment
+## a given matrix object and saves ("caches") them in an environment
 ## outside of the "current or local environ" - for subsequent access/use.
 ##
-## = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+##
+## To TEST the function(s), the following test data/sequence is recommended
+## |--------------------------------------|    |-------- ACTION ------------|
+##                                             
+## (1) Create initial special matrix Object  > m1 <- matrix(c(4,8,6,2), 2, 2)
+## (2) Execute function "makeCacheMatrix"    > cm_m1 <- makeCacheMatrix(m1) 
+## (3) View the contents of i/p matrix obj   > print(m1)
+## (3a)[Optional] View o/p "makeCacheMatrix" > print(cm_m1)
+##     Exp Res: Should see a "list" of 4
+##         functions created with "address"
+## (4) Execute function "cacheSolve" (1st)   > cs_1_m1 <- cacheSolve(cm_m1)
+##     Exp Result: Func return with NO msg 
+## (5) View the contents of matrix inverse   > print(cs_1_m1)
+## (6) Execute function "cacheSolve" (2nd)   > cs_2_m1 <- cacheSolve(cm_m1)
+##     Exp Res: "getting cached data" msg
+## (7) View the contents of matrix inverse   > print(cs_2_m1)
+##     EXP Res: cs_2_m1 same as cs_1_m1
+##
+## Iterate Steps (4) thru (7) as often as reqd. replacing variable name 
+## cs_N_m1 where "N" is the iteration number
+##
+## NOTES / PREREQS / ASSUMPTION(s)
+## -------------------------------
+## (1) "makeCacheMatrix" will be executed first. (To build the func list)
+## (2) "cacheSolve" will be called subsequently and in succession  
+## (3)  Any Call to "makeCacheMatrix" will reset/nullify if object exists, 
+##      and therefore the call to "cacheSolve" immediately thereafter 
+##      has to (re)calculate the inverse and cache it the first time 
+##      regardless of whether the matrix was actually changed or not.
+## 
+## = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 ## function - "makeCacheMatrix" 
 ## 
@@ -82,4 +112,3 @@
 ##
     return(matrix_inv)                  # exit with inverse of the matrix
 }
-
